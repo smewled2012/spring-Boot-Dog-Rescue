@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 public class DogServiceIm implements DogService {
 	@Autowired
 	private DataSource dataSource;
+	@SuppressWarnings("unused")
 	private JdbcTemplate jdbcTemplate;
 	private long generatedKey;
 	private String rescuedstring;
@@ -46,12 +47,13 @@ public class DogServiceIm implements DogService {
 		jdbcTemplate.update("DELETE FROM dog WHERE name='"+name+"' AND id="+id);
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public List<String> atriskdogs(Date rescued){
 		String sql = "SELECT * FROM dog WHERE rescued < '"+ rescued+"' AND vaccinated = '0'";
 		List<String> dogList = new ArrayList<String>();
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		jdbcTemplate.query(sql, new ResultSetExtractor<List>() {
-			public List extractData(ResultSet rs) throws SQLException {
+			public List<String> extractData(ResultSet rs) throws SQLException {
 				
 				while (rs.next()) {
 					String name = rs.getString("name");
