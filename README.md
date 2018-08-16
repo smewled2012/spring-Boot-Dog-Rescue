@@ -1,1 +1,1 @@
-# spring-Boot-Dog-Rescue
+# Spring-Boot-Dog-Rescue-Example
